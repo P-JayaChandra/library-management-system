@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Dashboard</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#f4f4f4;
+            margin:20px;
+        }
+
+        h1{
+            color:darkblue;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:darkblue;
+            color:white;
+        }
+
+        .btn{
+            padding:8px 12px;
+            text-decoration:none;
+            background:green;
+            color:white;
+            border-radius:5px;
+        }
+
+        .logout{
+            background:red;
+        }
+
+        input{
+            padding:10px;
+            width:300px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1>Student Dashboard</h1>
+
+<a class="btn logout" href="/logout">
+    Logout
+</a>
+
+<hr>
+
+<h2>Search Books</h2>
+
+<form method="GET" action="/student">
+
+    <input
+        type="text"
+        name="search"
+        placeholder="Enter Book Name">
+
+    <button class="btn" type="submit">
+        Search
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Available Books</h2>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Book Name</th>
+    <th>Author</th>
+    <th>Quantity</th>
+    <th>Action</th>
+</tr>
+
+{% for book in books %}
+
+<tr>
+    <td>{{ book[0] }}</td>
+    <td>{{ book[1] }}</td>
+    <td>{{ book[2] }}</td>
+    <td>{{ book[3] }}</td>
+
+    <td>
+        <a class="btn"
+           href="/issue-book/{{ book[0] }}">
+           Issue Book
+        </a>
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<hr>
+
+<h2>My Issued Books</h2>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Roll Number</th>
+    <th>Book Name</th>
+</tr>
+
+{% for item in my_books %}
+
+<tr>
+    <td>{{ item[0] }}</td>
+    <td>{{ item[1] }}</td>
+    <td>{{ item[3] }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>

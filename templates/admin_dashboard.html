@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#f4f4f4;
+            margin:20px;
+        }
+
+        h1{
+            color:darkblue;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            background:white;
+        }
+
+        th,td{
+            border:1px solid #ddd;
+            padding:10px;
+            text-align:center;
+        }
+
+        th{
+            background:darkblue;
+            color:white;
+        }
+
+        input{
+            padding:10px;
+            width:250px;
+            margin:5px;
+        }
+
+        .btn{
+            padding:8px 12px;
+            color:white;
+            text-decoration:none;
+            border-radius:5px;
+            border:none;
+            cursor:pointer;
+        }
+
+        .add{
+            background:green;
+        }
+
+        .delete{
+            background:red;
+        }
+
+        .return{
+            background:orange;
+        }
+
+        .logout{
+            background:black;
+        }
+
+        form{
+            background:white;
+            padding:15px;
+            border-radius:10px;
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<a class="btn logout" href="/logout">
+    Logout
+</a>
+
+<hr>
+
+<h2>Add New Book</h2>
+
+<form action="/add-book" method="POST">
+
+    <input
+        type="text"
+        name="book_name"
+        placeholder="Book Name"
+        required>
+
+    <input
+        type="text"
+        name="author"
+        placeholder="Author Name"
+        required>
+
+    <input
+        type="number"
+        name="quantity"
+        placeholder="Quantity"
+        required>
+
+    <button class="btn add" type="submit">
+        Add Book
+    </button>
+
+</form>
+
+<hr>
+
+<h2>Books List</h2>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Book Name</th>
+    <th>Author</th>
+    <th>Quantity</th>
+    <th>Action</th>
+</tr>
+
+{% for book in books %}
+
+<tr>
+
+    <td>{{ book[0] }}</td>
+    <td>{{ book[1] }}</td>
+    <td>{{ book[2] }}</td>
+    <td>{{ book[3] }}</td>
+
+    <td>
+
+        <a class="btn delete"
+           href="/delete-book/{{ book[0] }}">
+           Delete
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<hr>
+
+<h2>Issued Books</h2>
+
+<table>
+
+<tr>
+    <th>ID</th>
+    <th>Roll Number</th>
+    <th>Book Name</th>
+    <th>Action</th>
+</tr>
+
+{% for item in issued %}
+
+<tr>
+
+    <td>{{ item[0] }}</td>
+    <td>{{ item[1] }}</td>
+    <td>{{ item[3] }}</td>
+
+    <td>
+
+        <a class="btn return"
+           href="/return-book/{{ item[0] }}">
+           Return Book
+        </a>
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+</body>
+</html>
